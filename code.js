@@ -80,7 +80,7 @@ function level1() {
 
     }
 
-    if (time == 1500) {
+    if (time == 1) {
         for (let p = 0; p <= 9; p++) {
             wallsx[p] = 25 * 20 + p * 25;
             wallsy[p] = 25 * 11;
@@ -94,6 +94,9 @@ function level1() {
             wallsx[p] = 25 * 20;
             wallsy[p] = 25 * 6 + (p - 21) * 25;
         }
+       
+    }
+    if(time == 1500){
         currwallsize = 31;
     }
 }
@@ -118,7 +121,7 @@ function level2() {
         ctx.fill();
         ctx.closePath();
     }
-    if (time == 5000) {
+    if (time == 1) {
         for (let p = 32; p <= 42; p++) {
             wallsx[p] = 25 * 9;
             wallsy[p] = 25 * 6 + (p - 32) * 25;
@@ -127,6 +130,9 @@ function level2() {
             wallsx[p] = 25 * 40;
             wallsy[p] = 25 * 6 + (p - 43) * 25;
         }
+        
+    }
+    if(time == 5000){
         currwallsize = 53;
     }
 
@@ -153,7 +159,7 @@ function level3() {
         ctx.fill();
         ctx.closePath();
     }
-    if (time == 7500) {
+    if (time == 1) {
         for (let p = 54; p <= 62; p++) {
             wallsx[p] = 25 * 29 + (p - 54) * 25;
             wallsy[p] = 25 * 11 - 125;
@@ -170,7 +176,9 @@ function level3() {
             wallsx[p] = 25 * 12 + (p - 81) * 25;
             wallsy[p] = 25 * 21 - 125;
         }
-        currwallsize = 89;
+    }
+    if(time == 7500){
+        currwallsize = 89
     }
 }
 
@@ -197,7 +205,7 @@ function level4() {
         ctx.fill();
         ctx.closePath();
     }
-    if (time == 10000) {
+    if (time == 1) {
         for (let p = 90; p <= 95; p++) {
             wallsx[p] = 25 * 10 + (p - 90) * 25;
             wallsy[p] = 25 * 11;
@@ -222,6 +230,9 @@ function level4() {
             wallsx[p] = 25 * 25;
             wallsy[p] = 25 * 22 - 175 + (p - 122) * 25;
         }
+        
+    }
+    if(time == 10000){
         currwallsize = 128;
     }
 
@@ -366,7 +377,7 @@ function show_score() {
 
 function start_game_window(){
     ctx.font = "60px Arial";
-    ctx.fillStyle = 'yellow';
+    ctx.fillStyle = 'black';
     ctx.fillText("Easy" , 25*8 , 25 * 12);
     ctx.fillText("Medium" , 25*20 , 25 * 12);
     ctx.fillText("Hard" , 25*36 , 25 * 12);
@@ -376,8 +387,10 @@ function start_game_window(){
 
 function show_total_score(){
     ctx.fillStyle = 'black';
-    ctx.fillText("Total score: "+ (score+currsize), 25*17, 25*10);
-    ctx.fillText("Game will start in a while" , 25*14 , 25*15);
+    ctx.font = "60px Arial";
+    ctx.fillText("Total score: "+ (score+currsize), 25*18, 25*10);
+    ctx.font = "20px Arial";
+    ctx.fillText("Game will start in a while" , 25*20 , 25*12);
     new_time = new_time + 1;
 
     if(new_time>1000) {
@@ -408,7 +421,7 @@ function update() {
         if (time % 1000 == 0) {
             increase_size_of_snake();
         }
-        for (let u = 0; u < currsize; u++) {
+        for (let u = 0; u < currsize ; u++) {
             draw_snake(u);
             if (time % speed == 0) {
                 move_snake(u);
@@ -479,7 +492,7 @@ onmousedown = function(e){
 
 
 function check_if_available() {
-    for (let u = 0; u <= currwallsize; u++) {
+    for (let u = 0; u <= 128; u++) {
         if (currbonusx == wallsx[u] && currbonusy == wallsy[u]) return 0;
     }
     return 1;
