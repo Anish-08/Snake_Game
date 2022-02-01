@@ -1,10 +1,10 @@
 # Snake_Game
-Team Name - Late Current
-Team members - Anish Kulkarni and Aparna Agrawal
-An enhanced version of the popular game snake. 
-Here as the game progresses obstacles are added. 
-Earn bonus points by eating apple. 
-Total score is the sum of size and bonus points.
+Team Name - Late Current \n
+Team members - Anish Kulkarni and Aparna Agrawal\n
+An enhanced version of the popular game snake. \n
+Here as the game progresses obstacles are added. \n
+Earn bonus points by eating apple. \n
+Total score is the sum of size and bonus points.\n
 
 The rules are : 
 1)	Control keys are W,A,S,D.
