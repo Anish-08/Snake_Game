@@ -1,7 +1,7 @@
 # Snake_Game
 Team Name - Late Current 
 
-Team members - Anish Kulkarni and Aparna Agrawal
+Team members - Anish Yogesh Kulkarni and Aparna Agrawal
 
 An enhanced version of the popular game snake. 
 Here as the game progresses obstacles are added. 
