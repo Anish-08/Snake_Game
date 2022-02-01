@@ -377,7 +377,7 @@ function start_game_window(){
 function show_total_score(){
     ctx.fillStyle = 'black';
     ctx.fillText("Total score: "+ (score+currsize), 25*17, 25*10);
-    
+    ctx.fillText("Game will start in a while" , 25*14 , 25*15);
     new_time = new_time + 1;
 
     if(new_time>1000) {
