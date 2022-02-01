@@ -11,13 +11,17 @@ const wallsx = [];
 const wallsy = [];
 
 var gameendistrue = 0;
-
 var currsize = 1;
 var currwallsize = 0;
 var time = 0;
 var score = 0;
 var currbonusx = 25 * 25;
 var currbonusy = 25 * 5;
+var temp = 0;
+var speed = 20;
+var mousex = 0;
+var mousey = 0;
+var new_time=0;
 
 snakex[0] = 25 * 25
 snakey[0] = 25 * 16
@@ -348,31 +352,85 @@ function draw_snake(u) {
 
 
 function show_score() {
-    var div = document.getElementById('score_view');
-    div.innerHTML = "LENGTH = " + currsize + "&nbsp &nbsp &nbsp BONUS = " + score;
+    if(temp==1 )
+    {var div = document.getElementById('score_view');
+    div.innerHTML = "LENGTH = " + currsize + "&nbsp &nbsp &nbsp BONUS = " + score;}
+    else if(temp==0)
+        {var div = document.getElementById('score_view');
+        div.innerHTML = "Select Difficulty Level ";
+    }
+    
+
+    
 }
 
+function start_game_window(){
+    ctx.font = "60px Arial";
+    ctx.fillStyle = 'yellow';
+    ctx.fillText("Easy" , 25*8 , 25 * 12);
+    ctx.fillText("Medium" , 25*20 , 25 * 12);
+    ctx.fillText("Hard" , 25*36 , 25 * 12);
+    
 
+}
+
+function show_total_score(){
+    ctx.fillStyle = 'black';
+    ctx.fillText("Total score: "+ (score+currsize), 25*17, 25*10);
+    
+    new_time = new_time + 1;
+
+    if(new_time>1000) {
+        reset();
+    }
+}
+
+function reset(){
+    gameendistrue = 0;
+    currsize = 1;
+    currwallsize = 0;
+    time = 0;
+    score = 0;
+    currbonusx = 25 * 25;
+    currbonusy = 25 * 5;
+    temp = 0;
+    snakex[0] = 25 * 25
+    snakey[0] = 25 * 16
+    snakedir[0] = 1;
+    speed = 50;
+    new_time=0;
+}
 
 
 function update() {
-    Draw_background()
-    if (time % 1000 == 0) {
-        increase_size_of_snake();
-    }
-    for (let u = 0; u < currsize; u++) {
-        draw_snake(u);
-        if (time % 50 == 0) {
-            move_snake(u);
+    if(temp == 1){
+        Draw_background()
+        if (time % 1000 == 0) {
+            increase_size_of_snake();
         }
+        for (let u = 0; u < currsize; u++) {
+            draw_snake(u);
+            if (time % speed == 0) {
+                move_snake(u);
+            }
+        }
+        if (time % speed == 0) {
+            direction(snakedir[0]);
+        }
+        time = time + 1;
     }
-    if (time % 50 == 0) {
-        direction(snakedir[0]);
+    else if(temp==0){
+        level0();
+        start_game_window()
+    }
+    else{
+        level0();
+        show_total_score();
+        
     }
     show_score();
-    time = time + 1;
+     
 }
-
 
 
 
@@ -395,13 +453,37 @@ onkeydown = function(e) {
             //down
             snakedir[0] = 3;
             break;
-
+        
 
     }
 
 }
+  
+onmousedown = function(e){
+    mousex = e.clientX;
+    mousey = e.clientY;
+    if(mousex>=25 * 8 &&  mousex<=  25*16 && mousey>= 25 * 12 && mousey <= 25*16){
+        speed = 50;
+        temp = 1;
+    }
+    if(mousex>= 25*20 && mousex<=25*30  && mousey>=25*12 && mousey <= 25*16){
+        speed = 25;
+        temp = 1;
+    }
+    if(mousex>=25*36   && mousex<=42*25  && mousey>=25 * 12 && mousey <= 25* 16){
+        speed = 10;
+        temp = 1;
+    }
+}
 
 
+
+function check_if_available() {
+    for (let u = 0; u <= currwallsize; u++) {
+        if (currbonusx == wallsx[u] && currbonusy == wallsy[u]) return 0;
+    }
+    return 1;
+}
 
 //Collision Check
 function collision_check() {
@@ -436,20 +518,15 @@ function collision_check() {
     }
     //ending the game if collision has occured
     if (gameendistrue == 1) {
-        alert("Game Over ! \n" + "Your Score is " + (score + currsize));
-
-        clearInterval(one);
-        clearInterval(two);
+        //alert("Game Over ! \n" + "Your Score is " + (score + currsize));
+        temp = 2;
+        
+        //clearInterval(one);
+        //clearInterval(two);
     }
 }
 
 
-function check_if_available() {
-    for (let u = 0; u <= currwallsize; u++) {
-        if (currbonusx == wallsx[u] && currbonusy == wallsy[u]) return 0;
-    }
-    return 1;
-}
 
 
 //Running the game
